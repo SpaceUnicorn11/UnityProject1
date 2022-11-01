@@ -7,9 +7,13 @@ public class Player : MonoBehaviour
     public float BounceSpeed;
     public Game Game;
     public Platform CurrentPlatform;
+    public ParticleSystem DeathParticles;
+    public ParticleSystem VictoryParticles;
+    public ParticleSystem BounceParticles;
 
     public void Bounce()
     {
+        BounceParticles.Play();
         Rigidbody.velocity = new Vector3(0, BounceSpeed, 0);
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.Play();
@@ -17,12 +21,14 @@ public class Player : MonoBehaviour
 
     public void ReachFinish()
     {
+        VictoryParticles.Play();
         Game.OnPlayerReachedFinish();
         Rigidbody.velocity = Vector3.zero;
     }
 
     public void Die()
     {
+        DeathParticles.Play();
         Game.OnPlayerDied();
         Rigidbody.velocity = Vector3.zero;
     }
